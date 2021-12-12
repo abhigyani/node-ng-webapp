@@ -19,8 +19,10 @@ class Policy {
     }
 
     static fetchByRegion(region) {
+        if (region === 'All') {
+            return this.fetchAll();
+        }
         const query = `SELECT * FROM policy WHERE customer_region='${region}';`;
-        // console.log('REGION : ', query);
         const promise = db.execute(query);
         return promise;
     }

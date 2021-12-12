@@ -4,6 +4,7 @@ import { ColDef, GridOptions } from "ag-grid-community";
 import { InsuranceService } from "../insurance.service";
 
 import { IPolicy } from "../../interfaces";
+import { labels } from "../../language.labels";
 import { Observable } from "rxjs";
 
 @Component({
@@ -18,8 +19,11 @@ export class PolicyComponent implements OnInit {
   rowData = [];
   openEditForm: boolean;
   selectedRow = null;
+  languageLabels: any;
 
-  constructor(private _insuranceService: InsuranceService) {}
+  constructor(private _insuranceService: InsuranceService) {
+    this.languageLabels = labels
+  }
 
   ngOnInit() {
     this.openEditForm = false;
@@ -27,6 +31,11 @@ export class PolicyComponent implements OnInit {
 
   columnDefs: ColDef[] = [
     { field: "policy_id", headerName: "Policy Id" },
+    {
+      field: "date_of_purchase",
+      headerName: "Date of Purchase",
+      valueFormatter: this._isoDateFormatter,
+    },
     { field: "customer_id", headerName: "Customer Id" },
     { field: "fuel", headerName: "Fuel" },
     {
@@ -57,7 +66,6 @@ export class PolicyComponent implements OnInit {
       headerName: "Marital Status",
       valueFormatter: this._maritalStatusFormatter,
     },
-    { field: "date_of_purchase", headerName: "Date of Purcase" },
   ];
 
   gridOptions: GridOptions = {
@@ -81,25 +89,14 @@ export class PolicyComponent implements OnInit {
     return status;
   }
 
-  private _vehicleSegmentFormatter(params) {
-    let segment = "--";
-    switch (params.value) {
-      case "A":
-        segment = "CNG";
-        break;
-      case "B":
-        segment = "Petrol";
-        break;
-      case "C":
-        segment = "Diesel";
-        break;
-      case "E":
-        segment = "Electric";
-        break;
-      default:
-        segment = "--";
-    }
-    return segment;
+  private _isoDateFormatter(params) {
+    const isoDate = new Date(params.value);
+    const year = isoDate.getFullYear().toString();
+    let month = (1 + isoDate.getMonth()).toString();
+    month = month.length > 1 ? month : "0" + month;
+    let day = isoDate.getDate().toString();
+    day = day.length > 1 ? day : "0" + day;
+    return (month + "/" + day + "/" + year).toString();
   }
 
   onSelectionChanged() {

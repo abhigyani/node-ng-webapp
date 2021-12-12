@@ -13,5 +13,6 @@ export const labels = {
     customer_income_group: 'Customer Income Group',
     customer_region: 'Customer Region',
     customer_marital_status: 'Customer Marital Status',
-    date_of_purchase: 'Date of Purchase'
+    date_of_purchase: 'Date of Purchase',
+    policy_purchase_count: 'Number of policies purchased'
 }

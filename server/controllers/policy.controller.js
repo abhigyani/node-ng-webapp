@@ -15,8 +15,15 @@ exports.getPolicyByRegion = (req, res, next) => {
     const region = req.params.region;
     Policy.fetchByRegion(region).then((result) => {
         const data = result[0];
-        // console.log(`Policy in the ${region} `, data);
-        return res.send(data);
+        const obj = data.reduce((initialValue, currentValue) => {
+            const isoDate = currentValue['date_of_purchase'];
+            const date = new Date(isoDate);
+            const month = date.getMonth() + 1;
+            initialValue[month] = initialValue[month] ? initialValue[month] + 1 : 1;
+            initialValue['total'] = initialValue['total'] ? initialValue['total'] + 1 : 1;
+            return initialValue;
+        }, {});
+        return res.send(obj);
     }
     ).catch((error) => {
         console.log(`Error while fetching policy by month ${error}`);

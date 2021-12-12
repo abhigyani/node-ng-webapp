@@ -10,3 +10,14 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.chart-info-banner{
+    background-color: rgb(83, 119, 238);
+    padding: 1px 10px;
+    margin: 0rem 0rem 0rem 0.5rem;
+    color: white;
+}
+
+.banner-heading {
+    text-align: center;
+}

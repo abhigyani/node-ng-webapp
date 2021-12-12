@@ -5,7 +5,8 @@ import { ChartComponent } from './insurance/chart/chart.component';
 import { InsuranceComponent } from './insurance/insurance.component';
 
 const routes: Routes = [
-  { path: '', component: InsuranceComponent }
+  { path: '', component: InsuranceComponent },
+  { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
 
 @NgModule({

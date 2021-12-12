@@ -14,7 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { EditPolicyComponent } from './insurance/policy/edit-policy/edit-policy.component';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule } from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
+import { ChartsModule } from "ng2-charts";
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +36,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     AgGridModule.withComponents([]),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
