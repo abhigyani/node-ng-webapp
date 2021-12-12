@@ -1,12 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ColDef, GridOptions } from "ag-grid-community";
-
-import { InsuranceService } from "../insurance.service";
-
-import { IPolicy } from "../../interfaces";
-import { labels } from "../../language.labels";
 import { Observable } from "rxjs";
 
+import { InsuranceService } from "../insurance.service";
+import { labels } from "../../language.labels";
 @Component({
   selector: "app-policy",
   templateUrl: "./policy.component.html",
@@ -102,7 +99,6 @@ export class PolicyComponent implements OnInit {
   onSelectionChanged() {
     if (!this.openEditForm) {
       this.selectedRow = this._gridApi.getSelectedRows();
-      console.log(this.selectedRow);
       this.openEditForm = true;
     }
   }

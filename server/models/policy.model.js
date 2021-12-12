@@ -51,8 +51,6 @@ class Policy {
             customer_region='${data.customer_region}',
             customer_marital_status='${data.customer_marital_status}'
         WHERE policy_id='${currentId}';`
-
-        console.log(query);
         
         const promise = db.execute(query);
         return promise;

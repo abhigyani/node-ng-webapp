@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { labels } from "../../../language.labels";
 import { menuOptions } from "../../../constants";
@@ -29,8 +29,9 @@ export class EditPolicyComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.selectedRow[0].customer_income_group = (this.selectedRow[0].customer_income_group).replace(/ /g,'');
+    this.selectedRow[0].date_of_purchase = this._insuranceService.isoDateFormatter(this.selectedRow[0].date_of_purchase);
     this.policyForm.patchValue(this.selectedRow[0]);
-    console.log("Edit form calling", this.selectedRow);
   }
 
   buildForm() {
@@ -52,15 +53,14 @@ export class EditPolicyComponent implements OnInit {
       customer_income_group: ["", Validators.required],
       customer_region: ["", Validators.required],
       customer_marital_status: ["", Validators.required],
-      date_of_purchase: ["", Validators.required],
+      date_of_purchase: [{value: "", disabled: true}, Validators.required]
     });
   }
 
-  getErrorMessage() {
-    return "YOLO";
-  }
-
   updatePolicy() {
+    if (this.policyForm.invalid) {
+      return;
+    }
     const data = this.policyForm.value;
     this._insuranceService
       .updateRowInformation(data, this.selectedRow[0].policy_id)

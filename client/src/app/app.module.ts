@@ -11,8 +11,15 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatTabsModule } from "@angular/material/tabs";
 import { AgGridModule } from "ag-grid-angular";
 import { HttpClientModule } from "@angular/common/http";
-import { EditPolicyComponent } from './insurance/policy/edit-policy/edit-policy.component';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatRadioModule, MatSelectModule } from "@angular/material";
+import { EditPolicyComponent } from "./insurance/policy/edit-policy/edit-policy.component";
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatRadioModule,
+  MatSelectModule,
+} from "@angular/material";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ChartsModule } from "ng2-charts";
 @NgModule({
@@ -33,11 +40,12 @@ import { ChartsModule } from "ng2-charts";
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
+    MatAutocompleteModule,
     AgGridModule.withComponents([]),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ChartsModule
+    ChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

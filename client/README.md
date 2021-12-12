@@ -1,4 +1,5 @@
 # InsuranceClient
+Written in TypeScript using Angular 7+ framework.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.10.
 

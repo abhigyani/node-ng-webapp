@@ -11,17 +11,29 @@
           <mat-form-field appearance="fill">
             <mat-label>{{ languageLabels.policy_id }}</mat-label>
             <input matInput formControlName="policy_id" required>
-            <!-- <mat-error *ngIf="policy_id.invalid">{{getErrorMessage()}}</mat-error> -->
+            <mat-error *ngIf="policyForm.controls['policy_id'].hasError('required')">This field is required</mat-error>
           </mat-form-field>
         </div>
         <!-- Policy Id ends. -->
+
+        <!-- Date of purchase starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.date_of_purchase }} (mm/dd/yyyy)</mat-label>
+            <input matInput formControlName="date_of_purchase" required>
+            <mat-error *ngIf="policyForm.controls['date_of_purchase'].hasError('required')">This field is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!-- Date of purchase ends. -->
 
         <!-- Customer Id starts. -->
         <div class="example-container">
           <mat-form-field appearance="fill">
             <mat-label>{{ languageLabels.customer_id }}</mat-label>
             <input matInput formControlName="customer_id" required>
-            <!-- <mat-error *ngIf="customer_id.invalid">{{getErrorMessage()}}</mat-error> -->
+            <mat-error *ngIf="policyForm.controls['customer_id'].hasError('required')">This field is required
+            </mat-error>
           </mat-form-field>
         </div>
         <!-- Customer Id ends. -->
@@ -36,7 +48,7 @@
                 {{ fuel }}
               </mat-option>
             </mat-select>
-            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+            <mat-error *ngIf="policyForm.controls['fuel'].hasError('required')">This field is required</mat-error>
           </mat-form-field>
         </div>
         <!-- Fuel ends. -->
@@ -51,7 +63,8 @@
                 {{segment}}
               </mat-option>
             </mat-select>
-            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+            <mat-error *ngIf="policyForm.controls['vehicle_segment'].hasError('required')">This field is required
+            </mat-error>
           </mat-form-field>
         </div>
         <!-- Vehicle Segment ends. -->
@@ -61,7 +74,11 @@
           <mat-form-field appearance="fill">
             <mat-label>{{ languageLabels.premium }}</mat-label>
             <input matInput formControlName="premium" required>
-            <!-- <mat-error *ngIf="premium.invalid">{{getErrorMessage()}}</mat-error> -->
+            <span matPrefix>$&nbsp;</span>
+            <mat-error *ngIf="policyForm.controls['premium'].hasError('required')">This field is required</mat-error>
+            <mat-error
+              *ngIf="policyForm.controls['premium'].hasError('min') || policyForm.controls['premium'].hasError('max')">
+              Premium should be in range $0 - $1,000,000</mat-error>
           </mat-form-field>
         </div>
         <!-- Premium ends. -->
@@ -137,7 +154,7 @@
                 {{element}}
               </mat-option>
             </mat-select>
-            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+            <!-- <mat-error *ngIf="customer_income_group.hasError('required')">Please choose an animal</mat-error> -->
           </mat-form-field>
         </div>
         <!-- Income group ends. -->
@@ -152,7 +169,8 @@
                 {{ region }}
               </mat-option>
             </mat-select>
-            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+            <mat-error *ngIf="policyForm.controls['customer_region'].hasError('required')">This field is required
+            </mat-error>
           </mat-form-field>
         </div>
         <!-- Region ends. -->
@@ -167,23 +185,14 @@
         </div>
         <!-- Marital status ends. -->
 
-        <!-- Date of purchase starts. -->
-        <div class="example-container">
-          <mat-form-field appearance="fill">
-            <mat-label>{{ languageLabels.date_of_purchase }}</mat-label>
-            <input matInput formControlName="date_of_purchase" required>
-            <!-- <mat-error *ngIf="date_of_purchase.invalid">{{getErrorMessage()}}</mat-error> -->
-          </mat-form-field>
-        </div>
-        <!-- Date of purchase ends. -->
-
       </form>
     </div>
     <div class="modal__footer">
       <!-- Buttons start -->
       <div class="example-button-row">
         <button mat-raised-button class="bottom-button" (click)="closePopUp()">Cancel</button>
-        <button type="submit" mat-raised-button color="primary" class="bottom-button" (click)="updatePolicy()">Update</button>
+        <button type="submit" mat-raised-button color="primary" class="bottom-button" (click)="updatePolicy()"
+          [disabled]="policyForm.invalid">Update</button>
       </div>
       <!-- Button ends. -->
     </div>

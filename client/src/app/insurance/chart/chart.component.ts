@@ -42,7 +42,6 @@ export class ChartComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.region.value);
     const region = this.region.value;
     this._insuranceService.getPolicyByRegion(region).subscribe((data) => {
       this.result = data;
