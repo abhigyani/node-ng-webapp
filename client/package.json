@@ -3,11 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "startserver": "cd ../server && npm start",
+    "startclient": "npm start",
+    "startfull": "concurrently --kill-others \"npm run startserver\" \"npm run startclient\""
   },
   "private": true,
   "dependencies": {
@@ -24,6 +27,7 @@
     "ag-grid-angular": "^26.2.0",
     "ag-grid-community": "^26.2.0",
     "chart.js": "2.8.0",
+    "concurrently": "^4.1.0",
     "core-js": "^2.5.4",
     "ng2-charts": "2.0.0",
     "rxjs": "~6.3.3",
