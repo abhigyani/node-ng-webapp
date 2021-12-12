@@ -1,11 +1,11 @@
 # node-ng-webapp
 
 ## Tools Used:
-Angular CLI: 7.3.10
-Node: 14.16.1
-Typescript: 3.2.4
-NPM: 6.14.12
-MySQL
+Angular CLI: 7.3.10   
+Node: 14.16.1    
+Typescript: 3.2.4   
+NPM: 6.14.12  
+MySQL   
 
 ## Output Screenshots:
 ### 1. Landing Page
