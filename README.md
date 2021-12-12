@@ -15,7 +15,7 @@ MySQL
 
 ## Output Screenshots:
 ### 1. Landing Page
-![img.png](./output/'1 Landing Page.png')
+![img.png](https://github.com/abhigyani/node-ng-webapp/blob/master/output/1%20Landing%20Page.png)
 
 ### 2. Scrollable Table
 ![img_1.png](https://github.com/abhigyani/node-ng-webapp/blob/master/output/2%20Horizontally%20scrollable%20table.png)
