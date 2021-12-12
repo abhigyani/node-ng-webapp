@@ -1,0 +1,191 @@
+<div id="overlay">
+  <div id="edit-form" class="modal">
+    <div class="modal__header">
+      <h1>Edit - (Policy id: {{ selectedRow[0].policy_id }})</h1>
+    </div>
+    <div class="modal__content">
+      <form action="" [formGroup]="policyForm">
+
+        <!-- Policy Id starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.policy_id }}</mat-label>
+            <input matInput formControlName="policy_id" required>
+            <!-- <mat-error *ngIf="policy_id.invalid">{{getErrorMessage()}}</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Policy Id ends. -->
+
+        <!-- Customer Id starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.customer_id }}</mat-label>
+            <input matInput formControlName="customer_id" required>
+            <!-- <mat-error *ngIf="customer_id.invalid">{{getErrorMessage()}}</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Customer Id ends. -->
+
+        <!-- Fuel starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.fuel }}</mat-label>
+            <mat-select formControlName="fuel" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let fuel of formOptions.fuel" [value]="fuel">
+                {{ fuel }}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Fuel ends. -->
+
+        <!-- Vehicle Segment starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.vehicle_segment }}</mat-label>
+            <mat-select formControlName="vehicle_segment" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let segment of formOptions.vehicle_segment" [value]="segment">
+                {{segment}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Vehicle Segment ends. -->
+
+        <!-- Premium starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.premium }}</mat-label>
+            <input matInput formControlName="premium" required>
+            <!-- <mat-error *ngIf="premium.invalid">{{getErrorMessage()}}</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Premium ends. -->
+
+        <!-- Body Injury Liability Starts. -->
+        <div class="example-container">
+          <mat-label>{{ languageLabels.bodily_injury_liability }} : </mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="bodily_injury_liability" required>
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="0">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Body Injury Liability ends. -->
+
+        <!-- Personal Injury Protect Starts. -->
+        <div class="example-container">
+          <mat-label>{{ languageLabels.personal_injury_protection }} : </mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="personal_injury_protection" required>
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="0">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Personal Injury Protect Ends. -->
+
+        <!-- Property Damage Liability Starts. -->
+        <div class="example-container">
+          <mat-label>{{ languageLabels.property_damage_liability }} : </mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="property_damage_liability" required>
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="0">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Property Damage Liability ends. -->
+
+        <!-- Collision starts. -->
+        <div class="example-container">
+          <mat-label>{{ languageLabels.collision }} : </mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="collision" required>
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="0">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Collision Ends. -->
+
+        <!-- Comprehensive Starts. -->
+        <div class="example-container">
+          <mat-label>{{ languageLabels.comprehensive }} : </mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="comprehensive" required>
+            <mat-radio-button value="1">Yes</mat-radio-button>
+            <mat-radio-button value="0">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Comprehensive ends. -->
+
+        <!-- Gender Starts. -->
+        <div class="example-container">
+          <mat-label>{{ languageLabels.customer_gender }} : </mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="customer_gender" required>
+            <mat-radio-button value="Male">Male</mat-radio-button>
+            <mat-radio-button value="Female">Female</mat-radio-button>
+            <mat-radio-button value="Others">Others</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Gender ends. -->
+
+        <!-- Income group Starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.customer_income_group }}</mat-label>
+            <mat-select formControlName="customer_income_group" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let element of formOptions.customer_income_group" [value]="element">
+                {{element}}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Income group ends. -->
+
+        <!-- Region starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.customer_region }}</mat-label>
+            <mat-select formControlName="customer_region" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let region of formOptions.customer_region" [value]="region">
+                {{ region }}
+              </mat-option>
+            </mat-select>
+            <!-- <mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Region ends. -->
+
+        <!-- Marital status starts. -->
+        <div class="example-container">
+          <mat-label>{{ languageLabels.customer_marital_status }}</mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="customer_marital_status" required>
+            <mat-radio-button value="0">Un-married</mat-radio-button>
+            <mat-radio-button value="1">Married</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <!-- Marital status ends. -->
+
+        <!-- Date of purchase starts. -->
+        <div class="example-container">
+          <mat-form-field appearance="fill">
+            <mat-label>{{ languageLabels.date_of_purchase }}</mat-label>
+            <input matInput formControlName="date_of_purchase" required>
+            <!-- <mat-error *ngIf="date_of_purchase.invalid">{{getErrorMessage()}}</mat-error> -->
+          </mat-form-field>
+        </div>
+        <!-- Date of purchase ends. -->
+
+      </form>
+    </div>
+    <div class="modal__footer">
+      <!-- Buttons start -->
+      <div class="example-button-row">
+        <button mat-raised-button class="bottom-button" (click)="closePopUp()">Cancel</button>
+        <button type="submit" mat-raised-button color="primary" class="bottom-button" (click)="updatePolicy()">Update</button>
+      </div>
+      <!-- Button ends. -->
+    </div>
+  </div>
+</div>

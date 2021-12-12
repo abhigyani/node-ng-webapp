@@ -1,0 +1,8 @@
+<header class="policy-info-banner">
+  <h3>Click on any row to edit the policy information.</h3>
+</header>
+<ag-grid-angular style="width: 100%; height: 700px;" class="ag-theme-alpine" id="myGrid" [gridOptions]="gridOptions"
+  (gridReady)="onGridReady($event)">
+</ag-grid-angular>
+<app-edit-policy *ngIf="openEditForm" [selectedRow]='selectedRow' (popUpClose)="getPopUpState($event)"
+  (updatedData)="getUpdatedData($event)"></app-edit-policy>
