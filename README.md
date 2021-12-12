@@ -1,10 +1,10 @@
 # node-ng-webapp
 
 ## Tools Used:
-Angular CLI: 7.3.10   
-Node: 14.16.1    
-Typescript: 3.2.4   
-NPM: 6.14.12  
+Angular CLI:  7.3.10   
+Node:         14.16.1    
+Typescript:   3.2.4   
+NPM:          6.14.12  
 MySQL   
 
 ## Running this application locally.
@@ -15,7 +15,7 @@ MySQL
 
 ## Output Screenshots:
 ### 1. Landing Page
-![img.png](https://github.com/abhigyani/node-ng-webapp/blob/master/output/1%20Landing%20Page.png)
+![img.png](./output/'1 Landing Page.png')
 
 ### 2. Scrollable Table
 ![img_1.png](https://github.com/abhigyani/node-ng-webapp/blob/master/output/2%20Horizontally%20scrollable%20table.png)
