@@ -10,7 +10,7 @@ MySQL
 ## Running this application locally.
 1. Clone this repo.  
 2. Ensure the envrionment configuration is same or higher than mentioned in tools used section.
-3. Execute run.sh script. (Note: This file might need an execute permission. Execute the following command ```chmod +x run.sh```)
+3. Execute [run.sh](./run.sh) script. (Note: This file might need an execute permission. Execute the following command ```chmod +x run.sh```)
 4. Step 3 will set up node modules for client and server and host the appliction on http://localhost:4200/ by default.
 
 ## Output Screenshots:
