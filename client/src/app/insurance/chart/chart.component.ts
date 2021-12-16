@@ -1,59 +1,68 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormControl, Validators } from "@angular/forms";
-import { InsuranceService } from "../insurance.service";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { InsuranceService } from '../insurance.service';
 
-import { menuOptions } from "../../constants";
-import { labels } from "../../language.labels";
-import { ChartOptions, ChartType, ChartDataSets } from "chart.js";
-import { Label } from "ng2-charts";
+import { menuOptions } from '../../constants';
+import { labels } from '../../language.labels';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
+
+import { EChartTypes } from '../../enums/common.enum';
+import { IFormOptions, ILanguage } from '../../interfaces/interfaces';
+import { Subscription } from 'rxjs';
 @Component({
-  selector: "app-chart",
-  templateUrl: "./chart.component.html",
-  styleUrls: ["./chart.component.css"],
+  selector: 'app-chart',
+  templateUrl: './chart.component.html',
+  styleUrls: ['./chart.component.css'],
 })
 export class ChartComponent implements OnInit, OnDestroy {
+  private _subscriptions: Subscription[];
+
   barChartOptions: ChartOptions;
   barChartLabels: Label[];
   barChartType: ChartType;
   barChartLegend: boolean;
-  barChartPlugin: Array<any>;
   barChartData: ChartDataSets[];
   chartReady: boolean;
 
-  formOptions: any;
+  formOptions: IFormOptions;
   result: any;
-
-  region = new FormControl("", Validators.required);
   searchedRegion: string;
+  region: FormControl;
+  languageLabels: ILanguage;
 
   constructor(private _insuranceService: InsuranceService) {
+    this.languageLabels = labels;
     this.formOptions = menuOptions;
     this.barChartOptions = {
       responsive: true,
     };
     this.barChartLabels = menuOptions.months;
     this.barChartLegend = true;
-    this.barChartType = "bar";
-    this.barChartPlugin = [];
+    this.barChartType = EChartTypes.BAR;
   }
 
   ngOnInit() {
+    this._subscriptions = [];
     this.chartReady = false;
+    this.region = new FormControl('', Validators.required);
   }
 
-  onSubmit() {
+  onSubmit(): void {
     const region = this.region.value;
-    this._insuranceService.getPolicyByRegion(region).subscribe((data) => {
-      this.result = data;
-      this.searchedRegion = region;
-      this.barChartData = [
-        {
-          data: this._barChartDataMap(data),
-          label: labels.policy_purchase_count,
-        },
-      ];
-      this.chartReady = true;
-    });
+    this._subscriptions.push(
+      this._insuranceService.getPolicyByRegion(region).subscribe((data) => {
+        this.result = data;
+        this.searchedRegion = region;
+        this.barChartData = [
+          {
+            data: this._barChartDataMap(data),
+            label: this.languageLabels.policy_purchase_count,
+          },
+        ];
+        this.chartReady = true;
+      })
+    );
   }
 
   private _barChartDataMap(data) {
@@ -69,7 +78,14 @@ export class ChartComponent implements OnInit, OnDestroy {
     return result;
   }
 
+  // getChartSectionBanner() {
+  //   return this.languageLabels.policies_chart_header.replace('{0}', )
+  // }
+
   ngOnDestroy(): void {
     this.chartReady = false;
+    this._subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 }

@@ -1,83 +1,80 @@
 #overlay {
-    position: relative;
-    position: fixed;
-    /* display: block;
-    width: 100%;
-    height: 100%; */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 2;
-    cursor: pointer;
+  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  cursor: pointer;
 }
 
 #edit-form1 {
-    position: absolute;
-    background-color: white;
-    width: 50%;
-    height: 80vh;
-    overflow: auto;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    padding: 20px 10px;
+  position: absolute;
+  background-color: white;
+  width: 50%;
+  height: 80vh;
+  overflow: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px 10px;
 }
 
 .example-container {
-    margin: 15px 10px;
+  margin: 15px 10px;
 }
 
 .mat-radio-button {
-    margin: 10px 30px;
+  margin: 10px 30px;
 }
 
 .mat-form-field {
-    display: block;
+  display: block;
 }
 
 .modal {
-    display: block;
-    height: 80vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    width: 50%;
-    background-color: white;
+  display: block;
+  height: 80vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 50%;
+  background-color: white;
 }
 
 .modal__header,
 .modal__footer {
-    height: 100px;
-    padding: 10px;
+  height: 100px;
+  padding: 10px;
 }
 .modal__content,
 .modal__footer {
-    position: absolute;
-    width: 100%;
+  position: absolute;
+  width: 100%;
 }
 .modal__content {
-    bottom: 100px;
-    top: 100px;
-    overflow-y: auto;
+  bottom: 100px;
+  top: 100px;
+  overflow-y: auto;
 }
 .modal__footer {
-    bottom: 0;
+  bottom: 0;
 }
 
 .example-button-row {
-    float: right;
-    padding: 30px;
+  float: right;
+  padding: 30px;
 }
 
 .bottom-button {
-    margin: 0px 10px;
+  margin: 0px 10px;
 }

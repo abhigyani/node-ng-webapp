@@ -1,125 +1,192 @@
-import { Component, OnInit } from "@angular/core";
-import { ColDef, GridOptions } from "ag-grid-community";
-import { Observable } from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { InsuranceService } from "../insurance.service";
-import { labels } from "../../language.labels";
+import {
+  ColDef,
+  GridOptions,
+  GridApi,
+  RowNode,
+  GridReadyEvent,
+  ValueFormatterParams,
+} from 'ag-grid-community';
+import { Subscription } from 'rxjs';
+
+import { InsuranceService } from '../insurance.service';
+import { labels } from '../../language.labels';
+import { EBoolean } from '../../enums/boolean.enum';
+import { ECommon } from '../../enums/common.enum';
+import { ILanguage, IPolicy } from '../../interfaces/interfaces';
 @Component({
-  selector: "app-policy",
-  templateUrl: "./policy.component.html",
-  styleUrls: ["./policy.component.css"],
+  selector: 'app-policy',
+  templateUrl: './policy.component.html',
+  styleUrls: ['./policy.component.css'],
 })
-export class PolicyComponent implements OnInit {
-  public _gridApi;
-  policyData: Observable<any>;
-  rowSelection: string;
-  rowData = [];
+export class PolicyComponent implements OnInit, OnDestroy {
+  private _gridApi: GridApi;
+  private _subscriptions: Subscription[];
+
+  columnDefs: ColDef[];
+  gridOptions: GridOptions;
+  languageLabels: ILanguage;
   openEditForm: boolean;
-  selectedRow = null;
-  languageLabels: any;
+  rowSelection: string;
+  selectedRow: Array<IPolicy>;
 
   constructor(private _insuranceService: InsuranceService) {
-    this.languageLabels = labels
+    this.languageLabels = labels;
+    this._setGridColumns();
+    this._setGridOptions();
   }
 
   ngOnInit() {
+    this._subscriptions = [];
+    this.selectedRow = null;
     this.openEditForm = false;
   }
 
-  columnDefs: ColDef[] = [
-    { field: "policy_id", headerName: "Policy Id" },
-    {
-      field: "date_of_purchase",
-      headerName: "Date of Purchase",
-      valueFormatter: this._isoDateFormatter,
-    },
-    { field: "customer_id", headerName: "Customer Id" },
-    { field: "fuel", headerName: "Fuel" },
-    {
-      field: "vehicle_segment",
-      headerName: "Vehicle Segment",
-    },
-    {
-      field: "premium",
-      headerName: "Premium",
-      valueFormatter: this._currencyFormatter,
-    },
-    { field: "bodily_injury_liability", headerName: "Body Injury Liability" },
-    {
-      field: "personal_injury_protection",
-      headerName: "Personal Injury Protection",
-    },
-    {
-      field: "property_damage_liability",
-      headerName: "Property Damage Liability",
-    },
-    { field: "collision", headerName: "Collision" },
-    { field: "comprehensive", headerName: "Comprehensive" },
-    { field: "customer_gender", headerName: "Gender" },
-    { field: "customer_income_group", headerName: "Income Group" },
-    { field: "customer_region", headerName: "Region" },
-    {
-      field: "customer_marital_status",
-      headerName: "Marital Status",
-      valueFormatter: this._maritalStatusFormatter,
-    },
-  ];
-
-  gridOptions: GridOptions = {
-    context: this,
-    columnDefs: this.columnDefs,
-    rowSelection: "single",
-    rowStyle: { cursor: "pointer" },
-    deltaRowDataMode: true,
-    onSelectionChanged: (event) => this.onSelectionChanged(),
-    getRowNodeId: function (params) {
-      return Math.round(Math.random() * 10000000).toString();
-    },
+  private _setGridOptions = (): void => {
+    this.gridOptions = {
+      context: this,
+      columnDefs: this.columnDefs,
+      rowSelection: ECommon.SINGLE,
+      rowStyle: { cursor: 'pointer' },
+      deltaRowDataMode: true,
+      onSelectionChanged: () => this.onSelectionChanged(),
+      getRowNodeId() {
+        return Math.round(Math.random() * 10000000).toString();
+      },
+    };
   };
 
-  private _currencyFormatter(params) {
-    return "$ " + params.value;
+  private _setGridColumns(): void {
+    this.columnDefs = [
+      { field: 'policy_id', headerName: this.languageLabels.policy_id },
+      {
+        field: 'date_of_purchase',
+        headerName: this.languageLabels.date_of_purchase,
+        valueFormatter: this._isoDateFormatter,
+      },
+      {
+        field: 'customer_id',
+        headerName: this.languageLabels.date_of_purchase,
+      },
+      { field: 'fuel', headerName: this.languageLabels.fuel },
+      {
+        field: 'vehicle_segment',
+        headerName: this.languageLabels.vehicle_segment,
+      },
+      {
+        field: 'premium',
+        headerName: this.languageLabels.premium,
+        valueFormatter: this._currencyFormatter,
+      },
+      {
+        field: 'bodily_injury_liability',
+        headerName: this.languageLabels.bodily_injury_liability,
+        valueFormatter: this._booleanFormatter,
+      },
+      {
+        field: 'personal_injury_protection',
+        headerName: this.languageLabels.personal_injury_protection,
+        valueFormatter: this._booleanFormatter,
+      },
+      {
+        field: 'property_damage_liability',
+        headerName: this.languageLabels.property_damage_liability,
+        valueFormatter: this._booleanFormatter,
+      },
+      {
+        field: 'collision',
+        headerName: this.languageLabels.collision,
+        valueFormatter: this._booleanFormatter,
+      },
+      {
+        field: 'comprehensive',
+        headerName: this.languageLabels.comprehensive,
+        valueFormatter: this._booleanFormatter,
+      },
+      {
+        field: 'customer_gender',
+        headerName: this.languageLabels.customer_gender,
+      },
+      {
+        field: 'customer_income_group',
+        headerName: this.languageLabels.customer_income_group,
+      },
+      {
+        field: 'customer_region',
+        headerName: this.languageLabels.customer_region,
+      },
+      {
+        field: 'customer_marital_status',
+        headerName: this.languageLabels.customer_marital_status,
+        valueFormatter: this._maritalStatusFormatter,
+      },
+    ];
   }
 
-  private _maritalStatusFormatter(params) {
-    const status = params.value === "0" ? "Un-married" : "Married";
+  private _currencyFormatter = (params: ValueFormatterParams): string => {
+    return '$ ' + params.value;
+  };
+
+  private _maritalStatusFormatter = (params: ValueFormatterParams): string => {
+    const status =
+      params.value === EBoolean.FALSE
+        ? this.languageLabels.unmarried
+        : this.languageLabels.married;
     return status;
-  }
+  };
 
-  private _isoDateFormatter(params) {
+  private _isoDateFormatter = (params: ValueFormatterParams): string => {
     const isoDate = new Date(params.value);
     const year = isoDate.getFullYear().toString();
     let month = (1 + isoDate.getMonth()).toString();
-    month = month.length > 1 ? month : "0" + month;
     let day = isoDate.getDate().toString();
-    day = day.length > 1 ? day : "0" + day;
-    return (month + "/" + day + "/" + year).toString();
-  }
 
-  onSelectionChanged() {
+    month = month.length > 1 ? month : '0' + month;
+    day = day.length > 1 ? day : '0' + day;
+
+    return (month + '/' + day + '/' + year).toString();
+  };
+
+  private _booleanFormatter = (params: ValueFormatterParams): string => {
+    const value = params.value;
+    return value === EBoolean.FALSE
+      ? this.languageLabels.no
+      : this.languageLabels.yes;
+  };
+
+  onSelectionChanged(): void {
     if (!this.openEditForm) {
       this.selectedRow = this._gridApi.getSelectedRows();
       this.openEditForm = true;
     }
   }
 
-  onGridReady(params) {
+  onGridReady(params: GridReadyEvent): void {
     this._gridApi = params.api;
-    this.rowSelection = "Single";
-    this._insuranceService.getAllPolicies().subscribe((data) => {
-      this._gridApi.setRowData(data);
-    });
+    this.rowSelection = ECommon.SINGLE;
+    this._subscriptions.push(
+      this._insuranceService.getAllPolicies().subscribe((data: IPolicy[]) => {
+        this._gridApi.setRowData(data);
+      })
+    );
   }
 
-  getPopUpState(state: boolean) {
+  getPopUpState(state: boolean): void {
     this.openEditForm = state;
     // this._gridApi.deselectAll();
   }
 
-  getUpdatedData(data: any) {
-    this._gridApi.getSelectedNodes().forEach((rowNode) => {
+  getUpdatedData(data: IPolicy): void {
+    this._gridApi.getSelectedNodes().forEach((rowNode: RowNode) => {
       rowNode.setData({ ...rowNode.data, ...data });
     });
     this.openEditForm = false;
+  }
+
+  ngOnDestroy(): void {
+    this._subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 }

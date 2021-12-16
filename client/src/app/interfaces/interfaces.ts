@@ -13,5 +13,13 @@ export interface IPolicy {
   customer_income_group: string;
   customer_region: string;
   customer_marital_status: string;
-  date_of_purchase: Date;
+  date_of_purchase: string;
+}
+
+export interface ILanguage {
+  [index: string]: string;
+}
+
+export interface IFormOptions {
+  [index: string]: Array<string | number>;
 }

@@ -1,7 +1,7 @@
 <div id="overlay">
   <div id="edit-form" class="modal">
     <div class="modal__header">
-      <h2>Edit - (Policy id: {{ selectedRow[0].policy_id }})</h2>
+      <h2>{{ getEditFormHeading() }}</h2>
     </div>
     <div class="modal__content">
       <form action="" [formGroup]="policyForm">
@@ -9,9 +9,10 @@
         <!-- Policy Id starts. -->
         <div class="example-container">
           <mat-form-field appearance="fill">
-            <mat-label>{{ languageLabels.policy_id }}</mat-label>
+            <mat-label>{{ languageLabels?.policy_id }}</mat-label>
             <input matInput formControlName="policy_id" required>
-            <mat-error *ngIf="policyForm.controls['policy_id'].hasError('required')">This field is required</mat-error>
+            <mat-error *ngIf="policyForm.controls['policy_id'].hasError('required')">{{
+              languageLabels?.required_field_msg }}</mat-error>
           </mat-form-field>
         </div>
         <!-- Policy Id ends. -->
@@ -19,9 +20,10 @@
         <!-- Date of purchase starts. -->
         <div class="example-container">
           <mat-form-field appearance="fill">
-            <mat-label>{{ languageLabels.date_of_purchase }} (mm/dd/yyyy)</mat-label>
+            <mat-label>{{ languageLabels?.date_of_purchase }} ({{ languageLabels?.mmddyy_date_lbl }})</mat-label>
             <input matInput formControlName="date_of_purchase" required>
-            <mat-error *ngIf="policyForm.controls['date_of_purchase'].hasError('required')">This field is required
+            <mat-error *ngIf="policyForm.controls['date_of_purchase'].hasError('required')">{{
+              languageLabels?.required_field_msg }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -30,9 +32,10 @@
         <!-- Customer Id starts. -->
         <div class="example-container">
           <mat-form-field appearance="fill">
-            <mat-label>{{ languageLabels.customer_id }}</mat-label>
+            <mat-label>{{ languageLabels?.customer_id }}</mat-label>
             <input matInput formControlName="customer_id" required>
-            <mat-error *ngIf="policyForm.controls['customer_id'].hasError('required')">This field is required
+            <mat-error *ngIf="policyForm.controls['customer_id'].hasError('required')">{{
+              languageLabels?.required_field_msg }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -41,14 +44,15 @@
         <!-- Fuel starts. -->
         <div class="example-container">
           <mat-form-field appearance="fill">
-            <mat-label>{{ languageLabels.fuel }}</mat-label>
+            <mat-label>{{ languageLabels?.fuel }}</mat-label>
             <mat-select formControlName="fuel" required>
               <mat-option>--</mat-option>
               <mat-option *ngFor="let fuel of formOptions.fuel" [value]="fuel">
                 {{ fuel }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="policyForm.controls['fuel'].hasError('required')">This field is required</mat-error>
+            <mat-error *ngIf="policyForm.controls['fuel'].hasError('required')">{{ languageLabels?.required_field_msg }}
+            </mat-error>
           </mat-form-field>
         </div>
         <!-- Fuel ends. -->
@@ -56,14 +60,15 @@
         <!-- Vehicle Segment starts. -->
         <div class="example-container">
           <mat-form-field appearance="fill">
-            <mat-label>{{ languageLabels.vehicle_segment }}</mat-label>
+            <mat-label>{{ languageLabels?.vehicle_segment }}</mat-label>
             <mat-select formControlName="vehicle_segment" required>
               <mat-option>--</mat-option>
               <mat-option *ngFor="let segment of formOptions.vehicle_segment" [value]="segment">
                 {{segment}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="policyForm.controls['vehicle_segment'].hasError('required')">This field is required
+            <mat-error *ngIf="policyForm.controls['vehicle_segment'].hasError('required')">{{
+              languageLabels?.required_field_msg }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -72,74 +77,76 @@
         <!-- Premium starts. -->
         <div class="example-container">
           <mat-form-field appearance="fill">
-            <mat-label>{{ languageLabels.premium }}</mat-label>
+            <mat-label>{{ languageLabels?.premium }}</mat-label>
             <input matInput formControlName="premium" required>
             <span matPrefix>$&nbsp;</span>
-            <mat-error *ngIf="policyForm.controls['premium'].hasError('required')">This field is required</mat-error>
+            <mat-error *ngIf="policyForm.controls['premium'].hasError('required')">{{ languageLabels?.required_field_msg
+              }}</mat-error>
             <mat-error
               *ngIf="policyForm.controls['premium'].hasError('min') || policyForm.controls['premium'].hasError('max')">
-              Premium should be in range $0 - $1,000,000</mat-error>
+              {{ languageLabels?.range_error_msg }}
+            </mat-error>
           </mat-form-field>
         </div>
         <!-- Premium ends. -->
 
         <!-- Body Injury Liability Starts. -->
         <div class="example-container">
-          <mat-label>{{ languageLabels.bodily_injury_liability }} : </mat-label>
+          <mat-label>{{ languageLabels?.bodily_injury_liability }} : </mat-label>
           <mat-radio-group aria-label="Select an option" formControlName="bodily_injury_liability" required>
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="0">No</mat-radio-button>
+            <mat-radio-button value="1">{{ languageLabels?.yes }}</mat-radio-button>
+            <mat-radio-button value="0">{{ languageLabels?.no }}</mat-radio-button>
           </mat-radio-group>
         </div>
         <!-- Body Injury Liability ends. -->
 
         <!-- Personal Injury Protect Starts. -->
         <div class="example-container">
-          <mat-label>{{ languageLabels.personal_injury_protection }} : </mat-label>
+          <mat-label>{{ languageLabels?.personal_injury_protection }} : </mat-label>
           <mat-radio-group aria-label="Select an option" formControlName="personal_injury_protection" required>
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="0">No</mat-radio-button>
+            <mat-radio-button value="1">{{ languageLabels?.yes }}</mat-radio-button>
+            <mat-radio-button value="0">{{ languageLabels?.no }}</mat-radio-button>
           </mat-radio-group>
         </div>
         <!-- Personal Injury Protect Ends. -->
 
         <!-- Property Damage Liability Starts. -->
         <div class="example-container">
-          <mat-label>{{ languageLabels.property_damage_liability }} : </mat-label>
+          <mat-label>{{ languageLabels?.property_damage_liability }} : </mat-label>
           <mat-radio-group aria-label="Select an option" formControlName="property_damage_liability" required>
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="0">No</mat-radio-button>
+            <mat-radio-button value="1">{{ languageLabels?.yes }}</mat-radio-button>
+            <mat-radio-button value="0">{{ languageLabels?.no }}</mat-radio-button>
           </mat-radio-group>
         </div>
         <!-- Property Damage Liability ends. -->
 
         <!-- Collision starts. -->
         <div class="example-container">
-          <mat-label>{{ languageLabels.collision }} : </mat-label>
+          <mat-label>{{ languageLabels?.collision }} : </mat-label>
           <mat-radio-group aria-label="Select an option" formControlName="collision" required>
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="0">No</mat-radio-button>
+            <mat-radio-button value="1">{{ languageLabels?.yes }}</mat-radio-button>
+            <mat-radio-button value="0">{{ languageLabels?.no }}</mat-radio-button>
           </mat-radio-group>
         </div>
         <!-- Collision Ends. -->
 
         <!-- Comprehensive Starts. -->
         <div class="example-container">
-          <mat-label>{{ languageLabels.comprehensive }} : </mat-label>
+          <mat-label>{{ languageLabels?.comprehensive }} : </mat-label>
           <mat-radio-group aria-label="Select an option" formControlName="comprehensive" required>
-            <mat-radio-button value="1">Yes</mat-radio-button>
-            <mat-radio-button value="0">No</mat-radio-button>
+            <mat-radio-button value="1">{{ languageLabels?.yes }}</mat-radio-button>
+            <mat-radio-button value="0">{{ languageLabels?.no }}</mat-radio-button>
           </mat-radio-group>
         </div>
         <!-- Comprehensive ends. -->
 
         <!-- Gender Starts. -->
         <div class="example-container">
-          <mat-label>{{ languageLabels.customer_gender }} : </mat-label>
+          <mat-label>{{ languageLabels?.customer_gender }} : </mat-label>
           <mat-radio-group aria-label="Select an option" formControlName="customer_gender" required>
-            <mat-radio-button value="Male">Male</mat-radio-button>
-            <mat-radio-button value="Female">Female</mat-radio-button>
-            <mat-radio-button value="Others">Others</mat-radio-button>
+            <mat-radio-button value="Male">{{ languageLabels?.male }}</mat-radio-button>
+            <mat-radio-button value="Female">{{ languageLabels?.female }}</mat-radio-button>
+            <mat-radio-button value="Others">{{ languageLabels?.others }}</mat-radio-button>
           </mat-radio-group>
         </div>
         <!-- Gender ends. -->
@@ -154,7 +161,9 @@
                 {{element}}
               </mat-option>
             </mat-select>
-            <!-- <mat-error *ngIf="customer_income_group.hasError('required')">Please choose an animal</mat-error> -->
+            <mat-error *ngIf="policyForm.controls['customer_income_group'].hasError('required')">{{
+              languageLabels?.required_field_msg }}
+            </mat-error>
           </mat-form-field>
         </div>
         <!-- Income group ends. -->
@@ -169,7 +178,8 @@
                 {{ region }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="policyForm.controls['customer_region'].hasError('required')">This field is required
+            <mat-error *ngIf="policyForm.controls['customer_region'].hasError('required')">{{
+              languageLabels?.required_field_msg }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -177,10 +187,10 @@
 
         <!-- Marital status starts. -->
         <div class="example-container">
-          <mat-label>{{ languageLabels.customer_marital_status }}</mat-label>
+          <mat-label>{{ languageLabels?.customer_marital_status }}</mat-label>
           <mat-radio-group aria-label="Select an option" formControlName="customer_marital_status" required>
-            <mat-radio-button value="0">Un-married</mat-radio-button>
-            <mat-radio-button value="1">Married</mat-radio-button>
+            <mat-radio-button value="0">{{ languageLabels?.married }}</mat-radio-button>
+            <mat-radio-button value="1">{{ languageLabels?.unmarried }}</mat-radio-button>
           </mat-radio-group>
         </div>
         <!-- Marital status ends. -->
@@ -190,9 +200,9 @@
     <div class="modal__footer">
       <!-- Buttons start -->
       <div class="example-button-row">
-        <button mat-raised-button class="bottom-button" (click)="closePopUp()">Cancel</button>
+        <button mat-raised-button class="bottom-button" (click)="closePopUp()">{{ languageLabels?.cancel }}</button>
         <button type="submit" mat-raised-button color="primary" class="bottom-button" (click)="updatePolicy()"
-          [disabled]="policyForm.invalid">Update</button>
+          [disabled]="policyForm.invalid">{{ languageLabels?.update }}</button>
       </div>
       <!-- Button ends. -->
     </div>
