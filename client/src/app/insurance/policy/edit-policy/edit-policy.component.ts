@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Subscription } from 'rxjs';
 
-import { labels } from '../../../language.labels';
-import { menuOptions } from '../../../constants';
+import { labels } from '../../../common/language.labels';
+import { menuOptions } from '../../../common/constants';
 import {
   IPolicy,
   ILanguage,

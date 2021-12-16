@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { InsuranceService } from '../insurance.service';
 
-import { menuOptions } from '../../constants';
-import { labels } from '../../language.labels';
+import { menuOptions } from '../../common/constants';
+import { labels } from '../../common/language.labels';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 
-import { EChartTypes } from '../../enums/common.enum';
+import { EChartTypes } from '../../enums/insurance.enum';
 import { IFormOptions, ILanguage } from '../../interfaces/interfaces';
 import { Subscription } from 'rxjs';
 @Component({

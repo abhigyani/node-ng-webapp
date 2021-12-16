@@ -11,9 +11,8 @@ import {
 import { Subscription } from 'rxjs';
 
 import { InsuranceService } from '../insurance.service';
-import { labels } from '../../language.labels';
-import { EBoolean } from '../../enums/boolean.enum';
-import { ECommon } from '../../enums/common.enum';
+import { labels } from '../../common/language.labels';
+import { ECommon, EBoolean } from '../../enums/insurance.enum';
 import { ILanguage, IPolicy } from '../../interfaces/interfaces';
 @Component({
   selector: 'app-policy',
